@@ -1,0 +1,76 @@
+<style media="screen">
+  .monitor_report{
+    /* background: #ff9933; */
+    /*background: #5e64ff;*/
+    font-size: 15px;
+    text-align: center;
+    letter-spacing: .4px;
+    border-color:#0579ce;
+    border-color:#e0dede;
+  }
+  tbody tr td{
+    width:100px;
+  }
+  .total-fine {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    color: #d9534f;
+  }
+</style>
+<div class="order_table">
+    <table id="updates">
+        <span>
+            <table id="updates" style="margin-top:10px;">
+                <tr class="monitor_report" style="text-align: left;">
+                    <td colspan="5" style="font-size: 19px;">
+                        <b>ID:</b> {{data["emp_id"]}}<br>
+                        <b>Name  :</b> {{data["f_name"]}}  {{data["l_name"]}}<br>
+                        <b>Phone :</b> {{data["phone"]}}<br>
+                        <b>Email :</b> {{data["email"]}}<br>
+                    </td>
+                    <td colspan="7" style="text-align: center;font-size: x-large;color: #d9534f;">
+                        <b>Total Fine : {{data["total_fine"]}}</b>
+                    </td>
+                </tr>
+                <tr class="monitor_report" style="text-align: center;">
+                    <td colspan="2" style="font-size: x-large;"><b>Date</b></td>
+                    <td colspan="3" style="font-size: x-large;"><b>Options</b></td>
+                    <td colspan="4" style="font-size: x-large;"><b>Status</b></td>
+                    <td colspan="3" style="font-size: x-large;"><b>Fine</b></td>
+                </tr>
+
+                {%for tbl_data in data.order_details%}
+                    <tr style="text-align: center;">
+                        <td rowspan="4" colspan="2" style="color:black;"> {{ tbl_data["date"] }}</td>
+                    </tr>
+                    {%for da_ta in tbl_data.food_options%}
+                        <tr style="text-align: center;">
+                            <td colspan="3" style="color:black;"> {{da_ta["name"]}}</td>
+                            {% if da_ta["status"] == "Pending" %}
+                                <td colspan="4" style="color:red;"> {{da_ta["status"]}}</td>
+                            {% endif %}
+
+                            {% if da_ta["status"] == "Canceled" %}
+                                <td colspan="4" style="color:black;"> {{da_ta["status"]}}</td>
+                            {% endif %}
+
+                            {% if da_ta["status"] == "Delivered" %}
+                                <td colspan="4" style="color:black;"> {{da_ta["status"]}}</td>
+                            {% endif %}
+
+                            {% if da_ta["status"] == "-" %}
+                                <td colspan="4" style="color:black;"> {{da_ta["status"]}}</td>
+                            {% endif %}
+
+                            <td colspan="3" style="color:black;"> {{da_ta["fine"]}}</td>
+                        </tr>
+                    {%endfor%}
+                    
+                {%endfor%}
+
+                    
+            </table>
+        </span>
+    </table>
+</div> 
